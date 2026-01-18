@@ -4,12 +4,16 @@ A standardized, production-ready data science project structure for machine lear
 
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![ML Pipeline CI](https://github.com/ZeynepBehsi/ml-project-template/actions/workflows/ml-pipeline-ci.yml/badge.svg)](https://github.com/ZeynepBehsi/ml-project-template/actions/workflows/ml-pipeline-ci.yml)
+[![Code Quality](https://github.com/ZeynepBehsi/ml-project-template/actions/workflows/code-quality.yml/badge.svg)](https://github.com/ZeynepBehsi/ml-project-template/actions/workflows/code-quality.yml)
+[![GitHub Actions Demo](https://github.com/ZeynepBehsi/ml-project-template/actions/workflows/github-actions-demo.yml/badge.svg)](https://github.com/ZeynepBehsi/ml-project-template/actions/workflows/github-actions-demo.yml)
 
 ## 📋 Table of Contents
 
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
+- [CI/CD Pipelines](#cicd-pipelines)
 - [Best Practices](#best-practices)
 
 ## 🏗️ Project Structure
@@ -52,7 +56,9 @@ ml-project-template/
 │
 ├── .github/
 │   └── workflows/              # CI/CD pipelines
-│       └── tests.yml
+│       ├── github-actions-demo.yml    # GitHub Actions demo workflow
+│       ├── ml-pipeline-ci.yml         # ML pipeline testing
+│       └── code-quality.yml           # Code quality checks
 │
 ├── .gitignore                  # Git ignore rules
 ├── requirements.txt            # Python dependencies
@@ -109,6 +115,51 @@ ml-project-template/
 3. **Train model**
 ```bash
    python src/models/train_model.py
+```
+
+## 🔄 CI/CD Pipelines
+
+This project includes three GitHub Actions workflows for continuous integration and deployment:
+
+### 1. GitHub Actions Demo (`github-actions-demo.yml`)
+A simple workflow from GitHub's quickstart guide that demonstrates basic GitHub Actions concepts:
+- Triggers on every push to any branch
+- Shows event metadata and runner information
+- Lists repository files
+- Perfect for learning GitHub Actions basics
+
+### 2. ML Pipeline CI (`ml-pipeline-ci.yml`)
+Comprehensive testing pipeline for the ML project:
+- **Multi-version testing**: Tests on Python 3.9, 3.10, and 3.11
+- **Dependency caching**: Speeds up workflow with pip cache
+- **Code quality checks**: Runs flake8 linting and black formatting
+- **Test coverage**: Executes pytest with coverage reporting
+- **Pipeline testing**: Validates entire ML pipeline (data → features → model)
+- **Artifact storage**: Saves test results and models
+- **Codecov integration**: Uploads coverage reports
+
+### 3. Code Quality (`code-quality.yml`)
+Ensures code quality and security:
+- **Black**: Code formatting checks
+- **isort**: Import statement sorting
+- **flake8**: Linting and style guide enforcement
+- **bandit**: Security vulnerability scanning
+- **Automated reports**: Uploads security findings
+
+All workflows run automatically on push and pull requests to main/develop branches.
+
+## 🧪 Running Tests
+
+Run tests locally:
+```bash
+# Run all tests
+pytest tests/ -v
+
+# Run with coverage
+pytest tests/ --cov=src --cov-report=html
+
+# Run specific test file
+pytest tests/test_train_model.py -v
 ```
 
 ## 🎯 Best Practices
