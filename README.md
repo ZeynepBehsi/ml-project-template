@@ -10,11 +10,38 @@ A standardized, production-ready data science project structure for machine lear
 
 ## 📋 Table of Contents
 
+- [Features](#features)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [CI/CD Pipelines](#cicd-pipelines)
+- [Running Tests](#running-tests)
 - [Best Practices](#best-practices)
+- [Contributing](#contributing)
+- [License](#license)
+
+## ✨ Features
+
+- 🏗️ **Standardized structure** following data science best practices
+- 🧪 **Comprehensive testing** with 39 unit tests and 42% coverage
+- 🔄 **CI/CD pipelines** with GitHub Actions (multi-version testing)
+- 📊 **Complete ML workflow** from data processing to visualization
+- 🎯 **High accuracy** Random Forest model (92.5% test accuracy)
+- 📦 **Production-ready** pip installable package
+- 🔍 **Code quality** automated linting, formatting, and security checks
+- 📈 **Visualization** tools for model performance and data insights
+
+## 📊 Project Stats
+
+| Metric | Value |
+|--------|-------|
+| Python Version | 3.9+ |
+| Test Coverage | 42% |
+| Total Tests | 39 (all passing) |
+| Model Accuracy | 92.5% |
+| CV Score | 93.0% |
+| Lines of Code | ~1,500+ |
+| CI/CD Workflows | 3 automated pipelines |
 
 ## 🏗️ Project Structure
 ```
@@ -46,8 +73,13 @@ ml-project-template/
 │       ├── __init__.py
 │       └── visualize.py
 │
-├── tests/                      # Unit tests
-│   └── test_data.py
+├── tests/                      # Unit tests (42% coverage)
+│   ├── __init__.py
+│   ├── test_data.py            # Basic data tests
+│   ├── test_make_dataset.py    # Data processing tests
+│   ├── test_build_features.py  # Feature engineering tests
+│   ├── test_train_model.py     # Model training tests
+│   └── test_predict_model.py   # Prediction tests
 │
 ├── reports/                    # Generated analysis reports
 │   └── figures/                # Generated graphics
@@ -68,6 +100,27 @@ ml-project-template/
 
 ## 🚀 Getting Started
 
+### Technologies Used
+
+**Core ML Stack:**
+- Python 3.9+
+- NumPy, Pandas - Data manipulation
+- Scikit-learn - Machine learning
+- XGBoost, LightGBM - Gradient boosting
+
+**Visualization:**
+- Matplotlib, Seaborn, Plotly
+
+**Development Tools:**
+- pytest - Testing framework
+- Black - Code formatter
+- flake8 - Linting
+- isort - Import sorting
+
+**CI/CD:**
+- GitHub Actions - Automated workflows
+- Codecov - Coverage reporting
+
 ### Prerequisites
 
 - Python 3.9 or higher
@@ -78,7 +131,7 @@ ml-project-template/
 
 1. **Clone this repository**
 ```bash
-   git clone https://github.com/yourusername/ml-project-template.git
+   git clone https://github.com/ZeynepBehsi/ml-project-template.git
    cd ml-project-template
 ```
 
@@ -100,22 +153,41 @@ ml-project-template/
 
 ## 💻 Usage
 
-### Data Pipeline
+### Complete ML Pipeline
 
-1. **Load raw data**
+Run the entire ML pipeline from start to finish:
+
+1. **Process raw data**
 ```bash
-   python src/data/make_dataset.py
+   python src/data/make_dataset.py --input data/raw/sample_data.csv --output data/processed/
 ```
 
 2. **Build features**
 ```bash
-   python src/features/build_features.py
+   python src/features/build_features.py --input data/processed/processed_data.csv --output data/processed/
 ```
 
 3. **Train model**
 ```bash
-   python src/models/train_model.py
+   python src/models/train_model.py --input data/processed/features.csv --output models/
 ```
+
+4. **Make predictions**
+```bash
+   python src/models/predict_model.py --model models/random_forest_model.pkl --input data/processed/features.csv --output reports/
+```
+
+5. **Create visualizations**
+```bash
+   python src/visualization/visualize.py --data data/processed/features.csv --predictions reports/predictions.csv --output reports/figures/
+```
+
+### Example Output
+
+The trained model achieves:
+- **Test Accuracy**: 92.5%
+- **Cross-validation**: 93.0% (Random Forest)
+- **Coverage**: 42% code coverage with 39 passing tests
 
 ## 🔄 CI/CD Pipelines
 
@@ -150,17 +222,33 @@ All workflows run automatically on push and pull requests to main/develop branch
 
 ## 🧪 Running Tests
 
-Run tests locally:
+### Local Testing
+
+Run tests locally before pushing:
+
 ```bash
-# Run all tests
+# Run all 39 tests
 pytest tests/ -v
 
-# Run with coverage
-pytest tests/ --cov=src --cov-report=html
+# Run with coverage report (42% coverage)
+pytest tests/ --cov=src --cov-report=html --cov-report=term
 
 # Run specific test file
 pytest tests/test_train_model.py -v
+
+# Run with detailed output
+pytest tests/ -vv --tb=short
 ```
+
+### Test Structure
+
+- `test_data.py` - Basic data manipulation tests (3 tests)
+- `test_make_dataset.py` - Data loading and preprocessing (5 tests)
+- `test_build_features.py` - Feature engineering validation (10 tests)
+- `test_train_model.py` - Model training and evaluation (9 tests)
+- `test_predict_model.py` - Prediction functionality (12 tests)
+
+**Total: 39 tests, all passing ✅**
 
 ## 🎯 Best Practices
 
@@ -181,6 +269,26 @@ git commit -m "feat: add data preprocessing pipeline"
 - **`data/raw/`**: Never modify! Keep original data immutable
 - **`data/processed/`**: Store cleaned, transformed data
 - **`data/external/`**: Third-party datasets or reference data
+
+### Code Quality
+
+This project enforces:
+- **Black** for consistent code formatting
+- **isort** for organized imports
+- **flake8** for PEP 8 compliance
+- **pytest** for comprehensive testing
+
+Run quality checks:
+```bash
+# Format code
+black src tests
+
+# Sort imports
+isort src tests
+
+# Lint code
+flake8 src tests --max-line-length=127
+```
 
 ## 📝 Notes
 
