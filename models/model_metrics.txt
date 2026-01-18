@@ -1,0 +1,18 @@
+Model Evaluation Metrics
+========================
+
+Test Accuracy: 0.9250
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.94      0.91      0.92       100
+           1       0.91      0.94      0.93       100
+
+    accuracy                           0.93       200
+   macro avg       0.93      0.93      0.92       200
+weighted avg       0.93      0.93      0.92       200
+
+Confusion Matrix:
+[[91  9]
+ [ 6 94]]
